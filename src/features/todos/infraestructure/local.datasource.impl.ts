@@ -24,11 +24,19 @@ const TODOS_MOCK = [
 ];
 
 export class TodoDatasourceImpl implements TodoDatasource {
-	public async getAll(pagination: PaginationDto): Promise<PaginationResponseEntity<TodoEntity[]>> {
-		const { page, limit } = pagination;
+	public async getAll(
+        pagination: PaginationDto,
+        search?: string
+): Promise<PaginationResponseEntity<TodoEntity[]>> {
+        const { page, limit } = pagination;
 
-		const todos = TODOS_MOCK;
-		const total = TODOS_MOCK.length;
+        const todos = search
+                ? TODOS_MOCK.filter((todo) =>
+                        todo.text.toLowerCase().includes(search.toLowerCase())
+                )
+                : TODOS_MOCK;
+
+        const total = todos.length;
 
 		const totalPages = Math.ceil(total / limit);
 		const nextPage = page < totalPages ? page + ONE : null;

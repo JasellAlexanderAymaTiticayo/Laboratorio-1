@@ -23,7 +23,7 @@ describe('tests in repository.impl.ts', () => {
 	test('getAll should call datasource.getAll with right arguments', async () => {
 		const paginationDto = PaginationDto.create({ page: 1, limit: 10 });
 		await repository.getAll(paginationDto);
-		expect(datasource.getAll).toHaveBeenCalledWith(paginationDto);
+		expect(datasource.getAll).toHaveBeenCalledWith(paginationDto, undefined);
 	});
 
 	test('getById should call datasource.getById with right arguments', async () => {

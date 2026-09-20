@@ -30,6 +30,8 @@ interface RequestBody {
 interface RequestQuery {
 	page: string;
 	limit: string;
+	q?: string;
+
 }
 
 export class TodoController {
@@ -41,10 +43,10 @@ export class TodoController {
 		res: Response<SuccessResponse<PaginationResponseEntity<TodoEntity[]>>>,
 		next: NextFunction
 	): void => {
-		const { page = ONE, limit = TEN } = req.query;
+		const { page = ONE, limit = TEN, q } = req.query;
 		const paginationDto = PaginationDto.create({ page: +page, limit: +limit });
 		new GetTodos(this.repository)
-			.execute(paginationDto)
+			.execute(paginationDto, q)
 			.then((result) => res.json({ data: result }))
 			.catch((error) => {
 				next(error);

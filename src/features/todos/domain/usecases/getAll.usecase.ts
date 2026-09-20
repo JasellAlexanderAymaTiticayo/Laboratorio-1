@@ -3,13 +3,16 @@ import { type TodoEntity } from '../entities';
 import { type TodoRepository } from '../repositories/respository';
 
 export interface GetTodosUseCase {
-	execute: (pagination: PaginationDto) => Promise<PaginationResponseEntity<TodoEntity[]>>;
+        execute: (pagination: PaginationDto, search?: string) => Promise<PaginationResponseEntity<TodoEntity[]>>;
 }
 
 export class GetTodos implements GetTodosUseCase {
-	constructor(private readonly repository: TodoRepository) {}
+        constructor(private readonly repository: TodoRepository) {}
 
-	async execute(pagination: PaginationDto): Promise<PaginationResponseEntity<TodoEntity[]>> {
-		return await this.repository.getAll(pagination);
-	}
+        async execute(
+                pagination: PaginationDto,
+                search?: string
+        ): Promise<PaginationResponseEntity<TodoEntity[]>> {
+                return await this.repository.getAll(pagination, search);
+        }
 }
