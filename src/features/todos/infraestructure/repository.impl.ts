@@ -18,9 +18,12 @@ export class TodoRepositoryImpl implements TodoRepository {
 		return await this.datasource.create(createDto);
 	}
 
-	async getAll(pagination: PaginationDto): Promise<PaginationResponseEntity<TodoEntity[]>> {
-		return await this.datasource.getAll(pagination);
-	}
+	async getAll(
+        pagination: PaginationDto,
+        search?: string
+		): Promise<PaginationResponseEntity<TodoEntity[]>> {
+        return await this.datasource.getAll(pagination, search);
+}
 
 	async getById(getByIdDto: GetTodoByIdDto): Promise<TodoEntity> {
 		return await this.datasource.getById(getByIdDto);

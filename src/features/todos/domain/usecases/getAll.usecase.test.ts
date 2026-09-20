@@ -35,7 +35,7 @@ describe('tests in getAll.usecase.ts', () => {
 
 		const result = await getTodosUseCase.execute(paginationDto);
 
-		expect(repository.getAll).toHaveBeenCalledWith(paginationDto);
+		expect(repository.getAll).toHaveBeenCalledWith(paginationDto, undefined);
 		expect(result).toBe(paginationResult);
 	});
 
